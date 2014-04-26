@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Laukvikpdi : LaukvikPDI is a Java implementation of the Internet Mail Consortiums VCard and VCalendar. The API comes with an easy to use Java Swing application which demonstrates the features of the API." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Laukvikpdi</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/laukvik/LaukvikPDI">View on GitHub</a>
+
+          <h1 id="project_title">Laukvikpdi</h1>
+          <h2 id="project_tagline">LaukvikPDI is a Java implementation of the Internet Mail Consortiums VCard and VCalendar. The API comes with an easy to use Java Swing application which demonstrates the features of the API.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/laukvik/LaukvikPDI/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/laukvik/LaukvikPDI/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>Creating a new VCard</p>
+
+<pre><code>/* Create an empty VCard */
+VCard card = new VCard();
+card.add(VCard.VERSION, "2.0");
+
+/* Set a few properties  */
+card.add(VCard.FULLNAME, "Sun Microsystems, Inc.");
+card.add(VCard.ORGANISATION, "Sun Microsystems, Inc.");
+card.add(VCard.ADDRESS, "4150 Network Circle;Santa Clara, CA 95054");
+card.add(VCard.TELEPHONE, "1-800-555-9", VCard.DOMESTIC);
+card.add(VCard.TELEPHONE, "1-650-960-1300", VCard.INTERNATIONAL);
+
+/* Exports the VCard to file */
+String filename = "Sun_Microsystems.vcf";
+String directory = System.getProperty("user.home");
+File file = new File(directory, filename);
+try {
+    PDIManager.save(card, file);
+} catch (Exception e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<p>Reading a VCard</p>
+
+<pre><code>try {
+    /* Read an existing VCard */
+    File file = new File(System.getProperty("user.home"), "Sun_Microsystems.vcf");
+    VCard vcard = (VCard) PDIManager.read(file);
+    /* Display name */
+    System.out.println(vcard.get(VCard.FULLNAME));
+    /* List all phone numbers */
+    System.out.println(vcard.list(VCard.TELEPHONE));
+    /* List all domestic phone numbers */
+    System.out.println(vcard.list(VCard.TELEPHONE, VCard.DOMESTIC));
+    /* Print out all international numbers */
+    System.out.println(vcard.list(VCard.INTERNATIONAL));
+} catch (Exception e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<p>Creating a VCalendar</p>
+
+<pre><code>/* Create empty calendar */
+VCalendar cal = new VCalendar();
+/* Adding a simple todo item*/
+cal.addTodo("Remember to create JavaDoc", VTodo.PRIORITY_1, new Date(), "No comments");
+/* Creating a single event in schedule */
+GregorianCalendar from = new GregorianCalendar();
+GregorianCalendar to = new GregorianCalendar();
+to.add(GregorianCalendar.HOUR_OF_DAY, 3);
+cal.addEvent("Visit JavaZone", from.getTime(), to.getTime(), "");
+try {
+    /* Exporting calendar to standard ics file */
+    File file = new File(System.getProperty("user.home"), "mycalendar.ics");
+    PDIManager.save(cal, file);
+} catch (Exception e) {
+    e.printStackTrace();
+}
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Laukvikpdi maintained by <a href="https://github.com/laukvik">laukvik</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
