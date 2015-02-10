@@ -68,6 +68,7 @@ public class VCalendar<T> extends VProperty {
     /**
      * Creates a new <code>VCalendar</code> instance with the specfied parent
      *
+     * @param parent
      */
     public VCalendar(VProperty parent) {
         super(parent);

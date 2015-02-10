@@ -21,6 +21,12 @@ public class VCalendarTest {
     }
 
     @Test
+    public void shouldReadUSHolidays() throws Exception {
+        VCalendar vcal = (VCalendar) PDIManager.read(getResource("US-Holidays.ics"));
+
+    }
+
+    @Test
     public void shouldWriteCalendar() {
         /* Create empty calendar */
         VCalendar cal = new VCalendar();
@@ -35,7 +41,8 @@ public class VCalendarTest {
             /* Exporting calendar to standard ics file */
             File file = File.createTempFile("VCalendarTest", ".ics");
             PDIManager.save(cal, file);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -43,6 +50,11 @@ public class VCalendarTest {
             VEvent e = (VEvent) it.next();
             System.out.println(e.getSummary());
         }
+    }
+
+    public static File getResource(String filename) {
+        ClassLoader classLoader = VCardTest.class.getClassLoader();
+        return new File(classLoader.getResource(filename).getFile());
     }
 
 }

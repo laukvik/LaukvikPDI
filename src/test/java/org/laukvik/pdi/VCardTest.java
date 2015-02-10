@@ -1,4 +1,3 @@
-
 package org.laukvik.pdi;
 
 import java.io.File;
@@ -18,7 +17,6 @@ public class VCardTest {
     public VCardTest() {
     }
 
-
     @Before
     public void before() throws IOException {
         file = File.createTempFile("Sun_Microsystems", "vcf");
@@ -28,7 +26,8 @@ public class VCardTest {
     public void shouldWrite() {
         try {
             writeVCard();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             fail("Not able to write");
         }
     }
@@ -38,12 +37,17 @@ public class VCardTest {
         try {
             writeVCard();
             readVCard();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             ex.printStackTrace();
             fail("Not able to read");
         }
     }
 
+    public static File getResource(String filename) {
+        ClassLoader classLoader = VCardTest.class.getClassLoader();
+        return new File(classLoader.getResource(filename).getFile());
+    }
 
     public void writeVCard() throws Exception {
         /* Create an empty VCard */
@@ -57,10 +61,9 @@ public class VCardTest {
         card.add(VCard.TELEPHONE, "1-800-555-9", VCard.DOMESTIC);
         card.add(VCard.TELEPHONE, "1-650-960-1300", VCard.INTERNATIONAL);
 
-            PDIManager.save(card, file);
+        PDIManager.save(card, file);
 
     }
-
 
     public void readVCard() throws Exception {
         /* Read an existing VCard */
