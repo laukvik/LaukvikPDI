@@ -24,7 +24,7 @@ package org.laukvik.pdi;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * The Property class is the central class in the API. VCalendar, VCard VEvent
@@ -59,8 +59,8 @@ public class VProperty {
 
     private String name;
     private String value;
-    private Vector<VProperty> properties = new Vector<VProperty>();
-    private Vector<VParameter> parameters = new Vector<VParameter>();
+    private List<VProperty> properties = new ArrayList<VProperty>();
+    private List<VParameter> parameters = new ArrayList<VParameter>();
     private VProperty parent;
     private boolean isGroup = false;
     private final static int BASE64_CHARS_PR_ROW = 77;
@@ -205,7 +205,7 @@ public class VProperty {
      * @return an array of Property objects in the path
      */
     public VProperty[] listPath() {
-        Vector<VProperty> items = new Vector<VProperty>();
+        List<VProperty> items = new ArrayList<VProperty>();
         VProperty par = this;
         int n = 0;
         while (!par.isRoot() || n > 1000) {
@@ -213,7 +213,7 @@ public class VProperty {
             items.add(par);
             n++;
         }
-        Vector<VProperty> items2 = new Vector<VProperty>();
+        List<VProperty> items2 = new ArrayList<VProperty>();
         n = 0;
         for (int x = items.size() - 1; x > 0; x--) {
             items2.add(items.get(x));
@@ -447,7 +447,7 @@ public class VProperty {
      * @return a collection of Property objects
      */
     public Collection<VProperty> listGroups(String... groupValue) {
-        Vector<VProperty> items = new Vector<VProperty>();
+        List<VProperty> items = new ArrayList<VProperty>();
         /* Iterate through all child property objects */
         for (VProperty prop : properties) {
             if (prop.isGroup()) {
@@ -487,7 +487,7 @@ public class VProperty {
      * @return a Collection of Property objects
      */
     public Collection<VProperty> list(String propertyName, VParameter... searchParameters) {
-        Vector<VProperty> items = new Vector<VProperty>();
+        List<VProperty> items = new ArrayList<VProperty>();
         if (propertyName == null) {
             return null;
         }

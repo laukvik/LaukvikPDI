@@ -41,7 +41,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Vector;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -150,7 +150,7 @@ public class Viewer extends JFrame implements FocusListener, TreeSelectionListen
 	 */
     public void updateRecentItems(){
     		openRecentMenu.removeAll();
-		Vector <String> filenames = Helper.getRecentItemsList();
+		List <String> filenames = Helper.getRecentItemsList();
 		for (Object filename : filenames){
 			JMenuItem item = new JMenuItem( (String) filename );
 			item.addActionListener(new java.awt.event.ActionListener() {

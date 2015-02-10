@@ -25,9 +25,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
@@ -36,97 +37,100 @@ import javax.swing.UIManager;
 /**
  *
  *
- * @version  $Revision: 1.1 $
+ * @version $Revision: 1.1 $
  * @author	Morten Laukvik
  * @link		http://morten.laukvik.no
  * @since	1.5
  */
 public class Helper {
 
-	public static void setCrossPlatformProperties(){
-	    	if (System.getProperty( "os.name" ).startsWith("Mac") ){
-			System.setProperty( "apple.laf.useScreenMenuBar", "true" );
-		}
-		try{
-			UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-		} catch (Exception e){
-		}
-	}
+    public static void setCrossPlatformProperties() {
+        if (System.getProperty("os.name").startsWith("Mac")) {
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+        }
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception e) {
+        }
+    }
 
-	public static File getRecentFile(){
-		String home = System.getProperty( "user.home" );
-		return new File( home, ".orglaukvikpdiviewer");
-	}
+    public static File getRecentFile() {
+        String home = System.getProperty("user.home");
+        return new File(home, ".orglaukvikpdiviewer");
+    }
 
-	public static void addToRecentItemsList( String filename ){
-		RecentItems recentItems = new RecentItems( Helper.getRecentFile() );
-		recentItems.add( filename );
-	}
+    public static void addToRecentItemsList(String filename) {
+        RecentItems recentItems = new RecentItems(Helper.getRecentFile());
+        recentItems.add(filename);
+    }
 
-	public static Vector <String> getRecentItemsList(){
-		try {
-			RecentItems recentItems = new RecentItems( Helper.getRecentFile() );
-			return recentItems.getItems();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Vector <String>();
-		}
-	}
+    public static List<String> getRecentItemsList() {
+        try {
+            RecentItems recentItems = new RecentItems(Helper.getRecentFile());
+            return recentItems.getItems();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<String>();
+        }
+    }
 
-	public static void clearRecentItemsList(){
-		try {
-			RecentItems recentItems = new RecentItems( Helper.getRecentFile() );
-			recentItems.removeAll();
-			recentItems.save();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+    public static void clearRecentItemsList() {
+        try {
+            RecentItems recentItems = new RecentItems(Helper.getRecentFile());
+            recentItems.removeAll();
+            recentItems.save();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
-     * Returns a cross-platform keystroke that enables the platform behave natively.
-     * This is usually a problem for Mac people who uses the Apple button like
-     * Windows people use the Control button.
+     * Returns a cross-platform keystroke that enables the platform behave
+     * natively. This is usually a problem for Mac people who uses the Apple
+     * button like Windows people use the Control button.
      *
      * @param keyevent the keyevent you want the keystroke for
      * @return a cross-platfrom compatible keystroke
      */
-    public static KeyStroke getKeystroke( int keyevent ){
-		return KeyStroke.getKeyStroke( keyevent , Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
+    public static KeyStroke getKeystroke(int keyevent) {
+        return KeyStroke.getKeyStroke(keyevent, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
     }
 
-	/**
-	 * Returns an icon object with the given filename in the directory. The method
-	 * will only look inside this directory for images
-	 * <code>/org/laukvik/pdi/swing/icons/*.gif</code>
-	 *
-	 * @param filename The name of the icon file
-	 * @return an icon object
-	 */
-	public static Icon getIcon( String filename ){
-            return new javax.swing.ImageIcon(Viewer.class.getResource("/icons/" + filename));
-	}
+    /**
+     * Returns an icon object with the given filename in the directory. The
+     * method will only look inside this directory for images
+     * <code>/org/laukvik/pdi/swing/icons/*.gif</code>
+     *
+     * @param filename The name of the icon file
+     * @return an icon object
+     */
+    public static Icon getIcon(String filename) {
+        return new javax.swing.ImageIcon(Viewer.class.getResource("/icons/" + filename));
+    }
 
-	private static String getPackageName(){
-		return Helper.class.getPackage().getName();
-	}
+    private static String getPackageName() {
+        return Helper.class.getPackage().getName();
+    }
 
-	public static ResourceBundle getLanguage(){
-		Locale locale = Locale.getDefault();
-            ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
-		return messages;
-	}
+    public static ResourceBundle getLanguage() {
+        Locale locale = Locale.getDefault();
+        ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
+        return messages;
+    }
 
-	public static Image getImage( String filename ){
-		Image img = null;
-        File file = new File( "icons/" + filename );
+    public static Image getImage(String filename) {
+        Image img = null;
+        File file = new File("icons/" + filename);
         try {
-			img = ImageIO.read(file);
-			return img;
-		} catch (IOException e) {
-			return null;
-		}
-	}
+            img = ImageIO.read(file);
+            return img;
+        }
+        catch (IOException e) {
+            return null;
+        }
+    }
 
 }

@@ -21,12 +21,12 @@
  */
 package org.laukvik.pdi;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * The <code>VCalendar</code> object typically holds several <code>VEvent</code>
@@ -122,9 +122,9 @@ public class VCalendar<T> extends VProperty {
      * @return a collection of VEvent
      */
     @SuppressWarnings("unchecked")
-    public Vector<VEvent> listEvents(Date startDate, Date endDate) {
-        /* Create an empty vector to contain the results */
-        Vector<VEvent> items = new Vector<VEvent>();
+    public List<VEvent> listEvents(Date startDate, Date endDate) {
+        /* Create an empty List to contain the results */
+        List<VEvent> items = new ArrayList<>();
         /* List all VEvent objects */
         Collection<VProperty> events = listEvents();
         /* Sort the result by date */
